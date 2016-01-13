@@ -1,9 +1,9 @@
 module.exports = (function () {
-  let Services = require('./Services');
-  let Modules = require('./Modules');
-  let Mediator = require('./Mediator');
+  var Services = require('./lib/Services');
+  var Modules = require('./lib/Modules');
+  var Mediator = require('./lib/Mediator');
 
-  return Bakery = {
+  return {
     publish: Mediator.publish,
     subscribe: Mediator.subscribe,
     installTo: function (obj) {
@@ -20,10 +20,11 @@ module.exports = (function () {
     },
     require: function (path) {
       Modules.set(path);
+      return this;
     },
     init: function() {
       Modules.load();
-      this.publish('core:init');
+      this.publish('init');
     }
   };
 }());
