@@ -1,8 +1,23 @@
 module.exports = (function () {
+  // Modules to work with project parts.
   var Services = require('./lib/Services');
   var Modules = require('./lib/Modules');
   var Mediator = require('./lib/Mediator');
 
+  // Before/after login on init.
+  var beforeCallbacks = [];
+  var afterCallbacks = [];
+  var callBeforeCallbacks = function() {
+    beforeCallbacks.forEach(function(callback){
+      callback();
+    });
+  };
+  var callAfterCallbacks = function() {
+    afterCallbacks.foreach(function(callback){
+      callback();
+    });
+  };
+  // Main object
   return {
     publish: Mediator.publish,
     subscribe: Mediator.subscribe,
@@ -22,9 +37,20 @@ module.exports = (function () {
       Modules.set(path);
       return this;
     },
+    before: function(callback) {
+      beforeCallbacks.push(callback);
+      return this;
+    },
     init: function() {
+      callBeforeCallbacks();
       Modules.load();
       this.publish('init');
+      callAfterCallbacks();
+      return true;
+    },
+    after: function(callback) {
+      afterCallbacks.push(callback);
+      return this;
     }
   };
 }());
