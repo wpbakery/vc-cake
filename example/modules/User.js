@@ -1,4 +1,4 @@
-var vcCake = require('../index.js');
+var vcCake = require('vc-cake');
 
 var User = vcCake.installTo({
 
