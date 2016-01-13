@@ -1,0 +1,24 @@
+{
+  "name": "vc-cake",
+  "version": "0.0.1",
+  "description": "Module administration lib for javascript based projects from WPBakery",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wpbakery/vc-cake.git"
+  },
+  "keywords": [
+    "jsvacript",
+    "node",
+    "modules"
+  ],
+  "author": "Slava Vasenin <slava@wpbakery.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wpbakery/vc-cake/issues"
+  },
+  "homepage": "https://github.com/wpbakery/vc-cake#readme"
+}
