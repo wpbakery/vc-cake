@@ -31,8 +31,8 @@ module.exports = (function () {
           isInit = value;
         }
       });
-    } else {
-      throw new ModuleException('Wrong hop or hop doesn\'t exists');
+    } else if('string' !== typeof hop) {
+      throw new ModuleException('Wrong hop');
     }
   };
   // Main object
