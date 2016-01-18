@@ -1,21 +1,39 @@
-module.exports = (function () {
-  // Modules to work with project parts.
-  var Services = require('./lib/Services');
-  var Modules = require('./lib/Modules');
-  var Mediator = require('./lib/Mediator');
+// Modules to work with project parts.
+var Services = require('./lib/Services');
+var Modules = require('./lib/Modules');
+var Mediator = require('./lib/Mediator');
 
-  // Before/after login on init.
-  var beforeCallbacks = [];
-  var afterCallbacks = [];
-  var callBeforeCallbacks = function() {
-    beforeCallbacks.forEach(function(callback){
-      callback();
-    });
+module.exports = (function () {
+  var inited = false;
+  var ModuleException = function (message) {
+    this.message = message;
+    this.name = "VcCakeException";
   };
-  var callAfterCallbacks = function() {
-    afterCallbacks.foreach(function(callback){
-      callback();
-    });
+  var callbacksHops = {};
+  var addCallback = function(hop, callback) {
+    if('string' !== typeof(hop)){
+      throw new ModuleException('Wrong hop name');
+    }
+    if('function' !== typeof(callback)) {
+      throw new ModuleException('Callback not a function for hop: ' + hop);
+    }
+    if('undefined' !== typeof callbacksHops[hop]) {
+      callbacksHops[hop] = [];
+    }
+    callbacksHops[hop].push(callback);
+  };
+  // Before init.
+  var callCallbacks = function(hop) {
+    if('string' === typeof hop && Array.isArray(callCallbacks[hop])) {
+      callbacksHops[hop].forEach(function(callback){
+        var value = callback();
+        if('boolean' !== typeof value) {
+          isInit = value;
+        }
+      });
+    } else {
+      throw new ModuleException('Wrong hop or hop doesn\'t exists');
+    }
   };
   // Main object
   return {
@@ -38,18 +56,30 @@ module.exports = (function () {
       return this;
     },
     before: function(callback) {
-      beforeCallbacks.push(callback);
+      addCallback('before', callback);
       return this;
     },
     init: function() {
-      callBeforeCallbacks();
-      Modules.load();
-      this.publish('init');
-      callAfterCallbacks();
-      return true;
+      this.call('before');
+      if(!this.isInited()) {
+        // Iterate via modules with call and hop.
+        Services.load();
+        Modules.load();
+        this.publish('init');
+        inited = true;
+        this.call('after');
+      }
+      return inited;
     },
+    call: function(hop) {
+      !inited && callCallbacks(hop);
+      return this;
+    },
+    isInited: function() {
+      return inited;
+    }
     after: function(callback) {
-      afterCallbacks.push(callback);
+      addCallback('after', callback);
       return this;
     }
   };
