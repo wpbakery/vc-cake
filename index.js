@@ -77,7 +77,7 @@ module.exports = (function () {
     },
     isInited: function() {
       return inited;
-    }
+    },
     after: function(callback) {
       addCallback('after', callback);
       return this;
