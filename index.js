@@ -1,86 +1,50 @@
 // Modules to work with project parts.
-var Services = require('./lib/Services');
 var Modules = require('./lib/Modules');
 var Mediator = require('./lib/Mediator');
-
+var Stack = require('./lib/Stack');
 module.exports = (function () {
-  var inited = false;
-  var ModuleException = function (message) {
-    this.message = message;
-    this.name = "VcCakeException";
+
+  var addModule = function(type, name, callback, context) {
+    Module.add(type + ':' + name, callback, context);
   };
-  var callbacksHops = {};
-  var addCallback = function(hop, callback) {
-    if('string' !== typeof(hop)){
-      throw new ModuleException('Wrong hop name');
+  var getBehaviorModule = function(modules) {
+    this.modules = modules;
+    return function(name) {
+      if(this.modules.indexOf(name) > -1) {
+        return Modules.get(name);
+      }
+      throw new ModuleException('Behavior does not have an access to the module '
+        + name);
     }
-    if('function' !== typeof(callback)) {
-      throw new ModuleException('Callback not a function for hop: ' + hop);
-    }
-    if('undefined' !== typeof callbacksHops[hop]) {
-      callbacksHops[hop] = [];
-    }
-    callbacksHops[hop].push(callback);
-  };
-  // Before init.
-  var callCallbacks = function(hop) {
-    if('string' === typeof hop && Array.isArray(callCallbacks[hop])) {
-      callbacksHops[hop].forEach(function(callback){
-        var value = callback();
-        if('boolean' !== typeof value) {
-          isInit = value;
-        }
-      });
-    } else if('string' !== typeof hop) {
-      throw new ModuleException('Wrong hop');
-    }
-  };
+  }
   // Main object
   return {
-    publish: Mediator.publish,
-    subscribe: Mediator.subscribe,
-    installTo: function (obj) {
-      obj.subscribe = Mediator.subscribe;
-      obj.publish = Mediator.publish;
-      return obj;
+    addBehavior: function(callback, modules) {
+      addModule('behavior', callback, {
+        getService: this.getService,
+        subscribe: Mediator.subscribe,
+        getModule: new getBehaviorModule(modules)
+      });
+      this;
     },
-    addService: function (name, path) {
-      Services.set(name, path);
-      return this;
+    addModule: function(name, callback) {
+      addModule('module', name, callback, {
+        getService: this.getService,
+        publish: Mediator.publish
+      });
+      this;
+    },
+    addService: function (name, callback) {
+      addModule('service', name, callback, {
+        getService: this.getService
+      });
+      this;
     },
     getService: function (name) {
       return Services.get(name);
     },
-    require: function (path) {
-      Modules.set(path);
-      return this;
-    },
-    before: function(callback) {
-      addCallback('before', callback);
-      return this;
-    },
-    init: function() {
-      this.call('before');
-      if(!this.isInited()) {
-        // Iterate via modules with call and hop.
-        Services.load();
-        Modules.load();
-        this.publish('init');
-        inited = true;
-        this.call('after');
-      }
-      return inited;
-    },
-    call: function(hop) {
-      !inited && callCallbacks(hop);
-      return this;
-    },
-    isInited: function() {
-      return inited;
-    },
-    after: function(callback) {
-      addCallback('after', callback);
-      return this;
+    app: function() {
+      return new Stack();
     }
   };
 }());
