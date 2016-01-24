@@ -1,10 +1,12 @@
 var VcCake = require('vc-cake');
-var path = require('path');
 
 VcCake
-  .addService('utils', path.join(__dirname, 'services/Utils'))
+  .addService('utils', function(context){
+    return require('./services/Utils');
+  })
+  .app()
   .init(function(){
     // Add modules
-    require('modules/User');
+    require('modules/navbar');
     // Add behavior
-  });
+  }).start();

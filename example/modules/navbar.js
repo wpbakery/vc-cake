@@ -6,6 +6,6 @@ vcCake.addModule('navbar', function(app){
       }
   };
   return function() {
-
+      Navbar.render();
   };
 });
