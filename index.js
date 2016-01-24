@@ -10,7 +10,7 @@ module.exports = (function () {
     this.modules = modules;
     return function(name) {
       if(this.modules.indexOf(name) > -1) {
-        return Parts.get(name);
+        return Parts.get('module:' + name);
       }
       throw new ModuleException('Behavior does not have an access to the module '
         + name);
