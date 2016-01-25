@@ -1,12 +1,11 @@
 var VcCake = require('vc-cake');
 
 VcCake
-  .addService('utils', function(context){
+  .addService('utils', function(){
     return require('./services/Utils');
-  })
-  .app()
+  }).app()
   .init(function(){
-    // Add modules
-    require('modules/navbar');
-    // Add behavior
+    require('./modules/navbar');
+    // Add actions
+    require('./app/user');
   }).start();
