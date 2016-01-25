@@ -27,7 +27,7 @@ var GetBehaviorModule = function (modules) {
   return function (name) {
     if (this.modules.indexOf(name) > -1) {
       var Module = Cake.get(MODULE_TYPE, name);
-      Module.subscribe = Cake.subscribe(MODULE_TYPE, name);
+      Module.on = Cake.subscribe(MODULE_TYPE, name);
       return Module;
     }
     throw new ModuleException('Behavior does not have an access to the module '
