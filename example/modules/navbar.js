@@ -7,7 +7,7 @@ vcCake.addModule('navbar', function(app){
   };
   return {
     init: function() {
-      NavBar,render();
+      NavBar.render();
     }
   };
 });

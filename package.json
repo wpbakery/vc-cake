@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/wpbakery/vc-cake/issues"
   },
-  "homepage": "https://github.com/wpbakery/vc-cake#readme"
+  "homepage": "https://github.com/wpbakery/vc-cake#readme",
+  "dependencies": {
+    "lodash": "^4.0.0"
+  }
 }
