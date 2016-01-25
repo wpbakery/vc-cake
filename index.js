@@ -4,7 +4,7 @@ var Stack = require('./lib/Stack');
 module.exports = (function () {
 
   var addPart = function(type, name, callback, context, lazy) {
-    Part.add(type + ':' + name, callback, context, lazy);
+    Parts.add(type + ':' + name, callback, context, lazy);
   };
   var getBehaviorModule = function(modules) {
     this.modules = modules;
@@ -14,8 +14,8 @@ module.exports = (function () {
       }
       throw new ModuleException('Behavior does not have an access to the module '
         + name);
-    }
-  }
+    };
+  };
   // Main object
   return {
     addBehavior: function(callback, modules) {
@@ -24,20 +24,20 @@ module.exports = (function () {
         subscribe: Mediator.subscribe,
         getModule: new getBehaviorModule(modules)
       });
-      this;
+      return this;
     },
     addModule: function(name, callback) {
       addPart('module', name, callback, {
         getService: this.getService,
         publish: Mediator.publish
       });
-      this;
+      return this;
     },
     addService: function (name, callback) {
       addPart('service', name, callback, {
         getService: this.getService
       }, true);
-      this;
+      return this;
     },
     getService: function (name) {
       return Parts.get('services:' + name);
