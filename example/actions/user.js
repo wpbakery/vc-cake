@@ -4,5 +4,4 @@ VcCake.addAction('user', function(app){
   Navbar.on('render', function(){
     console.log('user rendered too: ' + app.getService('utils').returnString());
   });
-  Navbar.init();
 }, ['navbar']);

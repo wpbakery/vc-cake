@@ -4,4 +4,5 @@ VcCake.addAction('editor', function(app){
   app.getModule('editor').on('create', function(){
     NavBar.init();
   })
+  app.getModule('editor').init();
 }, ['navbar', 'editor']);

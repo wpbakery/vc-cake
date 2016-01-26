@@ -6,7 +6,7 @@ VcCake
   }).app()
   .init(function(){
     require('./modules/navbar');
-    require('./modules/user');
+    require('./modules/editor');
     // Add actions
     require('./actions/editor');
     require('./actions/user');
