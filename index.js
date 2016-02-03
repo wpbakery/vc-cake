@@ -1,44 +1,53 @@
+
+// Node js libs
+var util = require('util');
+// Node modules
 var curry = require('lodash/curry');
+// Inner modules
 var moduleException = require('./lib/exception');
 var Mediator = require('./lib/mediator');
-
+// Storage for all apps build with vcCake.
 var apps = {};
-var envars = {
-  debug: false
-};
-var appException = function(message, returnValue) {
-  if(true === envars.debug) {
+
+var appException = function(message, returnValue, anyway) {
+  if(true === enVars.debug || true === anyway) {
    throw new moduleException(message);
   }
   return returnValue || null;
 }
-var AppBuilder = function(name){
+var Builder = function(name){
+  if(['undefined', 'string'].indexOf(typeof name) < 0 || 'undefined' !== typeof apps[name]) {
+    return appException(
+      utils.format('Application with this name "%s" already exists or name is wrong', name),
+      null,
+      true
+    );
+  }
   var data = {
       mediator: new Mediator(),
       modules: {},
       services: {},
-      name: name || 'main';
+      name: name || 'main'
   };
-  if('string' !== typeof data.name || 'undefined' !== typeof apps[data.name]) {
-    return appException('Application with this name "' + name + '" already exists or name is wrong');
-  }
   // Create app object which will be
   apps[data.name] = {
     install: function(name, object) {
-      data.modules[name] = {
-        on: curry(function(mediator, name, eventName, callback) {
-          return mediator.subscribe(name + ':' + eventName, callback);
-        })(data.mediator, name)
+      if(!data.modules[name]) {
+        data.modules[name] = {
+          on: curry(function(mediator, name, eventName, callback) {
+            return mediator.subscribe(name + ':' + eventName, callback);
+          })(data.mediator, name)
+        };
       };
-      return Object.create(object, {
-        notify: curry(function(mediator, name, eventName, data){
-          return mediator.publish(name + ':' + eventName, data);
-        })(data.mediator, name)
-      });
+      return (function(o){
+        o.notify = function(){
+        };
+        return 0;
+      }(object));
     },
     module: function(name) {
-      return modules[name] ? modules[name] : appException('Wrong module name: ' + name, {on: function(){
-        return this;
+      return modules[name] ? modules[name] : appException(
+        util.format('Wrong module name: %s', name), {on: function(){
       }});
     },
     getService: function (name) {
@@ -49,32 +58,36 @@ var AppBuilder = function(name){
       data.mediator(event, callback);
     }
   };
-  return {
-    addService: function (name, callback) {
-      data.services[name] = function(){
-        callback()
-      };
-      return this;
-    },
-    start: function (callback) {
-      'function' === typeof callback && callback(this);
-      data.mediator.publish('start', true);
-      return this;
-    }
+  var app = Object.create(apps[data.name]);
+  app.addService = function (name, object) {
+    data.services[name] = 'function' === typeof object ? new object(name) : object;
+    return this;
   };
+  app.start = function (callback) {
+    'function' === typeof callback && callback(this);
+    data.mediator.publish('start', true);
+    return true;
+  };
+  return app;
 };
-AppBuilder.app = function(name) {
+Builder.app = function(name) {
   var appName = name || 'main';
   if('object' === typeof apps[appName]) {
     return apps[appName];
   }
-  return appException('Wrong app name: ' + name);
+  return appException( util.format('Wrong app name: %s', name));
 };
-AppBuilder.setEnv = function(key, value) {
-  envars[key] = value;
+/* This block is about environment variables for VcCake. */
+var enVars = {
+  debug: !!process.env.DEBUG
 };
-AppBuilder.env = function(key) {
-  return envars[key];
+/* Set env */
+Builder.setEnv = function(key, value) {
+  enVars[key] = value;
+};
+/* Get env */
+Builder.env = function(key) {
+  return enVars[key];
 };
 
-module.exports = AppBuilder;
+module.exports = Builder;
