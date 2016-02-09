@@ -2,92 +2,123 @@
 // Node js libs
 var util = require('util');
 // Node modules
-var curry = require('lodash/curry');
+var _ = require('lodash');
 // Inner modules
 var moduleException = require('./lib/exception');
-var Mediator = require('./lib/mediator');
-// Storage for all apps build with vcCake.
-var apps = {};
+var mediator = require('./lib/mediator');
 
-var appException = function(message, returnValue, anyway) {
-  if(true === enVars.debug || true === anyway) {
-   throw new moduleException(message);
-  }
-  return returnValue || null;
-}
-var Builder = function(name){
-  if(['undefined', 'string'].indexOf(typeof name) < 0 || 'undefined' !== typeof apps[name]) {
-    return appException(
-      utils.format('Application with this name "%s" already exists or name is wrong', name),
-      null,
-      true
-    );
-  }
-  var data = {
-      mediator: new Mediator(),
-      modules: {},
-      services: {},
-      name: name || 'main'
-  };
-  // Create app object which will be
-  apps[data.name] = {
-    install: function(name, object) {
-      if(!data.modules[name]) {
-        data.modules[name] = {
-          on: curry(function(mediator, name, eventName, callback) {
-            return mediator.subscribe(name + ':' + eventName, callback);
-          })(data.mediator, name)
-        };
+const SERVICE_TYPE = 'service';
+const MODULE_TYPE = 'module';
+
+var Cake = {
+    modules: [],
+    moduleAPI: {},
+    services: {},
+    loadModules: function() {
+      modules.map(function(m){
+        var api = Cake.moduleAPI[m.scope];
+        m.callback(api);
+      });
+    },
+    publish: _.curry(function (type, name, eventName, data) {
+      return mediator.publish(type + name + ':' + eventName, data);
+    }),
+    subscribe: _.curry(function (type, name, eventName, callback) {
+      return  mediator.subscribe(type + name + ':' + eventName, callback);
+    }),
+    enVars: {
+      debug: !!process.env.DEBUG
+    },
+    exception: function(message, returnValue, anyway) {
+      if(true === this.enVars.debug || true === anyway) {
+       throw new moduleException(message);
+      }
+      return returnValue || null;
+    },
+    API: function(scope){
+      var data = {
+        scope: scope,
+        event: null,
       };
-      return (function(o){
-        o.notify = function(){
-        };
-        return 0;
-      }(object));
-    },
-    module: function(name) {
-      return modules[name] ? modules[name] : appException(
-        util.format('Wrong module name: %s', name), {on: function(){
-      }});
-    },
-    getService: function (name) {
-      return data.services[name];
-    },
-    // Global event subscibe
-    on: function(event, callback) {
-      data.mediator(event, callback);
-    }
-  };
-  var app = Object.create(apps[data.name]);
-  app.addService = function (name, object) {
-    data.services[name] = 'function' === typeof object ? new object(name) : object;
-    return this;
-  };
-  app.start = function (callback) {
-    'function' === typeof callback && callback(this);
-    data.mediator.publish('start', true);
-    return true;
-  };
-  return app;
-};
-Builder.app = function(name) {
-  var appName = name || 'main';
-  if('object' === typeof apps[appName]) {
-    return apps[appName];
-  }
-  return appException( util.format('Wrong app name: %s', name));
-};
-/* This block is about environment variables for VcCake. */
-var enVars = {
-  debug: !!process.env.DEBUG
-};
-/* Set env */
-Builder.setEnv = function(key, value) {
-  enVars[key] = value;
-};
-/* Get env */
-Builder.env = function(key) {
-  return enVars[key];
-};
+      var bindToEvent = function() {
 
-module.exports = Builder;
+      };
+      return {
+        // @todo set as development
+        actionsList: function() {
+          return Object.keys(Cake.modulesAPI.actions);
+        },
+        ,
+        onBuild: function(event) {
+
+        },
+        // @todo need to add logic call it if it is called already
+        on: function(event, callback) {
+          if(callback) {
+
+          } else {
+            data.event = event;
+            return {
+              do: function(name) {
+                return this;
+              }
+            };
+        },
+        getService: this.service,
+        request: Cake.publish('', '', _, true),
+        reply: Cake.subscribe('', ''),
+      };
+    }
+};
+Object.defineProperty(Cake, 'start', {
+  set: function(value) {
+    if(true !== this.cake) {
+      this.value = true;
+      this.loadModules();
+      this.publish('', 'app', 'start', true);
+    }
+  }
+  enumerable: false,
+  configurable: false,
+  writable: true,
+  value: false
+});
+
+module.exports = {
+  add: function(scope, callback) {
+    if(Cake.modulesAPI[scope]) {
+      var m = Cake.modulesAPI[scope] || {
+        getService: this.service,
+        request: Cake.publish('', '', _, true),
+        reply: Cake.subscribe('', ''),
+        module: new Cake.API(scope),
+        actions: [],
+      };
+      m.addAction = function(name, callback) {
+        this.actions[name] = callback;
+      }.bind(m);
+      Cake.modulesAPI[scope] = m;
+    }
+    Cake.modules[{scope: scope, callback: callback}];
+    return this;
+  },
+  service: function(name) {
+    return Cake.service(name) || Cake.exception(util.format('Serviss with a name "%s"  doesn\'t exist', name), {}, true);
+  },
+  addService: function(name, object) {
+      Cake.add(appParts, SERVICE_TYPE, name, callback, null, 4, function(object){
+        return _.curry(function(object, load) {
+          return object;
+      })(object);
+    return this;
+  },
+  start: function() {
+      Cake.start = true;
+  },
+  env: function(key) {
+    return Cake[key];
+  },
+  setEnv: function(key, value) {
+    Cake[key] = value;
+  }
+};
