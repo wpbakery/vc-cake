@@ -16,17 +16,13 @@ var API = module.exports = function (name) {
       return Object.keys(scopes.actions[this.name]);
     }
   });
-  /**
-   * var subscribe function
-   */
-  this.subscribe = events.subscribe(constants.MODULE_TYPE, this.name);
 };
 API.prototype.on = function (event, fn) {
-  this.subscribe(event, fn, false);
+  events.subscribe(constants.MODULE_TYPE, this.name, event, fn);
   return this;
 };
 API.prototype.once = function (event, fn) {
-  this.subscribe(event, fn, true);
+  tevents.subscribe(constants.MODULE_TYPE, this.name, event, fn, true);
   return this;
 };
 API.prototype.do = function () {

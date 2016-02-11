@@ -15,9 +15,6 @@ var API = module.exports = function (name) {
     scopes.actions[this.name] = {};
   }
   this.actions = scopes.actions[this.name];
-  this.publish = events.publish(constants.MODULE_TYPE, name);
-  this.subscribe = events.subscribe(constants.MODULE_TYPE, name);
-  this.subscribeOnce = events.subscribe(constants.MODULE_TYPE, name);
 };
 API.prototype.addAction = function (name, fn) {
   this.actions[name] = fn;
@@ -36,17 +33,18 @@ API.prototype.request = function(event, data){
 };
 API.prototype.reply = function(event, fn){
   events.reply(event, fn);
+  return this;
 };
 API.prototype.notify = function(event, data) {
-  this.publish(event, data);
+  events.publish(constants.MODULE_TYPE, this.name, event, data);
   return this;
 };
 API.prototype.on = function(event, data) {
-  this.subscribe(event, data);
+  events.subscribe(constants.MODULE_TYPE, this.name, event, data);
   return this;
 };
 API.prototype.once = function(event, data) {
-  this.subscribeOnce(event, data);
+  events.subscribe(constants.MODULE_TYPE, this.name, event, data, true);
   return this;
 };
 API.prototype.module = function(scope) {
