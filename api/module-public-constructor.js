@@ -9,6 +9,13 @@ var constants = require('../config/settings').constants;
  */
 var API = module.exports = function (name) {
   this.name = name;
+  Object.defineProperty(this, 'actions', {
+    enumerable: false,
+    configurable: false,
+    get: function() {
+      return Object.keys(scopes.actions[this.name]);
+    }
+  });
   /**
    * var subscribe function
    */
