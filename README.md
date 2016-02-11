@@ -5,7 +5,7 @@ Module administration lib for javascript based projects from WPBakery
 Contains two main parts: **Service, Module Scope**
 
 ## Service
-Globally accessible object that can be used by all modules in all scopes. Example: key generators, i18n functions, default settings for new elements, template for element.
+Globally accessible object that can be used by all modules in all scopes. Example: key generators, i18n functions, default settings for new elements, template for element. But serviss cann't be added by the 
 
 ## Module
 Part of page(not always visible part of the page, but it has owen independent logic from all othe elements of the project), some modules can be coupled via modules API but it works via actions that works on events of requested module.
@@ -35,13 +35,17 @@ vcCake.add('module-scope', function(api){
 		// ...hre comes the action
 	});
 	// Like publish, module inner events
-	api.notify('module-event-name'); // this event inside module
+	api.notify('module-event-name', true); // this event inside module
 	
-	// Like subscribe, module inner events
-	api('module-scope').on('module-event-name', function(m){
+	// Like subscribe, module inner events 
+	api.module('module-scope').on('module-event-name', function(m){
 		m.service('service-name')
 		m.do('module-action-name', ...attrsMaybePassed);
 	});
-	// or
-	api('module-scope').on('module-event-name').do('module-action-name', ...attrsMaybePassed);
+	api.module('module-scope').once('module-event-name', function(m){
+		m.service('service-name')
+		m.do('module-action-name', ...attrsMaybePassed);
+	});
+	// or you can just call do to call action
+	api('module-scope').do('module-action-name', ...attrsMaybePassed);
 });
