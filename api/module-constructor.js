@@ -1,17 +1,23 @@
+'use strict';
+
 var scopes = require('../lib/scopes');
 var events = require('../lib/events');
-
+var services = require('../lib/services');
+var constants = require('../config/settings').constants;
 var ModulePublicAPI = require('./module-public-constructor');
-
+/**
+ * @constructor
+ * @type {API}
+ */
 var API = module.exports = function (name) {
   this.name = name;
-  if('undefined' !== typeof scopes.actions[this.name]) {
+  if('undefined' === typeof scopes.actions[this.name]) {
     scopes.actions[this.name] = {};
   }
   this.actions = scopes.actions[this.name];
-  this.publish = events.publish(MODULE_TYPE, name);
-  this.subscribe = events.subscribe(MODULE_TYPE, name);
-  this.subscribeOnce = events.subscribe(MODULE_TYPE, name);
+  this.publish = events.publish(constants.MODULE_TYPE, name);
+  this.subscribe = events.subscribe(constants.MODULE_TYPE, name);
+  this.subscribeOnce = events.subscribe(constants.MODULE_TYPE, name);
 };
 API.prototype.addAction = function (name, fn) {
   this.actions[name] = fn;
@@ -47,6 +53,6 @@ API.prototype.module = function(scope) {
   return new ModulePublicAPI(scope);
 };
 API.prototype.destructor = function(fn) {
-
+  scopes.destructor(this.name, fn);
   return this;
-}
+};

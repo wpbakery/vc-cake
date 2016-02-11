@@ -1,3 +1,5 @@
+'use strict';
+
 var events = require('../lib/events');
 var scopes = require('../lib/scopes');
 var constants = require('../config/settings').constants;
@@ -23,6 +25,6 @@ API.prototype.once = function (event, fn) {
 API.prototype.do = function () {
   var name = arguments[0];
   var attr = Array.prototype.slice.call(arguments, 1);
-  scopes.actions[name].apply(this, attr);
+  scopes.actions[this.name][name].apply(this, attr);
   return this;
 };

@@ -28,5 +28,10 @@
   "devDependencies": {
     "jest-cli": "^0.8.2",
     "jscs": "^2.9.0"
+  },
+  "jest": {
+    "unmockedModulePathPatterns": [
+      "./node_modules/lodash"
+    ]
   }
 }

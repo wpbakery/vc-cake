@@ -7,7 +7,7 @@ exports.env = {
     return settings[key];
   },
   set: function(key, value) {
-    settings.key = value;
+    settings[key] = value;
   }
 };
 exports.constants = {

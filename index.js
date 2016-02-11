@@ -1,3 +1,5 @@
+'use strict';
+
 // Inner modules
 var enVars = require('./config/settings').env;
 var services = require('./lib/services');
@@ -24,13 +26,13 @@ App.prototype.addService = function(name, obj) {
   return this;
 };
 App.prototype.env = function(key, value) {
-  var value = this;
+  var returnValue = this;
   if (key && value) {
     enVars.set(key, value);
   } else if (key) {
-    value = enVars.get(key);
+    returnValue = enVars.get(key);
   }
-  return value;
+  return returnValue;
 };
 App.prototype.start = function(fn) {
   if (!start) {

@@ -1,0 +1,9 @@
+jest.dontMock('../index');
+jest.dontMock('lodash');
+jest.dontMock('../config/settings.js');
+jest.dontMock('../lib/mediator');
+jest.dontMock('../lib/scopes');
+jest.dontMock('../lib/services');
+jest.dontMock('../lib/events');
+jest.dontMock('../api/module-constructor.js');
+jest.dontMock('../api/module-public-constructor.js');
