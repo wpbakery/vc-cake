@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "style": "jscs index.js __tests__/*.js lib/*.js"
+    "code-style": "jscs index.js __tests__/*.js lib/*.js"
   },
   "repository": {
     "type": "git",

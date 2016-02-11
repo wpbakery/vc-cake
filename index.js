@@ -1,4 +1,3 @@
-var merge = require('lodash').merge;
 // Inner modules
 var enVars = require('./config/settings').env;
 var services = require('./lib/services');
@@ -25,12 +24,13 @@ App.prototype.addService = function(name, obj) {
   return this;
 };
 App.prototype.env = function(key, value) {
+  var value = this;
   if (key && value) {
     enVars.set(key, value);
-    return this;
   } else if (key) {
-    return enVars.get(key);
+    value = enVars.get(key);
   }
+  return value;
 };
 App.prototype.start = function(fn) {
   if (!start) {
