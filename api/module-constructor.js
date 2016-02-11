@@ -1,7 +1,7 @@
-var scopes = require('../lib/modules');
+var scopes = require('../lib/scopes');
 var events = require('../lib/events');
 
-var ModulePublicAPI = require('.module-public-constructor');
+var ModulePublicAPI = require('./module-public-constructor');
 
 var API = module.exports = function (name) {
   this.name = name;
