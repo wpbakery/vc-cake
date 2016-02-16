@@ -78,6 +78,9 @@ vcCake.add('module-scope', function(api){
 		...
 	});
 	// or you can just call do to call action
-	api.module('module-scope').on('module-event-name').do('module-action-name', ...attrsMaybePassed);
+	api
+	    .module('module-scope')
+	    .on('module-event-name')
+	    .do('module-action-name', ...attrsMaybePassed);
 });
 ```

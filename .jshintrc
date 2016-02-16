@@ -15,7 +15,7 @@
 
     "node" : true,
     "browser" : true,
-
+    "version": 6,
     "boss" : false,
     "curly": false,
     "debug": false,

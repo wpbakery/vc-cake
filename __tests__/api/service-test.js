@@ -1,7 +1,7 @@
-require('./_base');
+require('../_full_api_test');
 describe('add service', function() {
   it('creates new service. Check does it exists', function() {
-    var vcCake = require('../index');
+    var vcCake = require('../../index');
     var service = {
       test: function() {
         return testString;

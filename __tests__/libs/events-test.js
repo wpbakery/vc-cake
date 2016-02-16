@@ -1,4 +1,4 @@
-require('../_base');
+require('../_full_api_test');
 var methods = ['publish', 'subscribe', 'request', 'reply'];
 describe('check Events module methods', function() {
   methods.forEach(function(method) {

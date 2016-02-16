@@ -3,7 +3,7 @@ var enVars = require('./config/settings').env;
 var services = require('./lib/services');
 var events = require('./lib/events');
 var scopes = require('./lib/scopes');
-var ModuleAPI = require('./api/module-constructor');
+var ModuleAPI = require('./lib/module-api-constructor');
 
 var start = false;
 /**
@@ -25,7 +25,7 @@ App.prototype.addService = function(name, obj) {
 };
 App.prototype.env = function(key, value) {
   var returnValue = this;
-  if (key && value) {
+  if (key && 'undefined' !== typeof value) {
     enVars.set(key, value);
   } else if (key) {
     returnValue = enVars.get(key);

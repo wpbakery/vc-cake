@@ -1,8 +1,8 @@
-require('./_base');
+require('../_full_api_test');
 
 describe('running', function() {
   it('creates new app and start it. Check does it have a correct state', function() {
-    var vcCake = require('../index');
+    var vcCake = require('../../index');
     vcCake.start(function() {
       // test
     });
