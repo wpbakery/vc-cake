@@ -1,5 +1,3 @@
-'use strict';
-
 // Inner modules
 var enVars = require('./config/settings').env;
 var services = require('./lib/services');

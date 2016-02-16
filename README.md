@@ -42,9 +42,11 @@ API object passed to callback function via
 - **addAction(actionName, fn)**
 - **notify(eventName, data)**
 - **on(eventName, fn)**
-- **do(actionName, ..atts)**
+- **once(eventName, fn)**
+- **actions.{actionName}**
 - **module(moduleName)** - returns another Module API with limited amount of methods:
 	- **on(eventName, fn)**
+	- **once(eventName, fn)**
 	- **do(actionName, ..atts)**
 
 
@@ -76,6 +78,6 @@ vcCake.add('module-scope', function(api){
 		...
 	});
 	// or you can just call do to call action
-	api('module-scope').do('module-action-name', ...attrsMaybePassed);
+	api.module('module-scope').on('module-event-name').do('module-action-name', ...attrsMaybePassed);
 });
 ```

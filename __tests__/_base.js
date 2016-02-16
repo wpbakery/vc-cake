@@ -7,3 +7,4 @@ jest.dontMock('../lib/services');
 jest.dontMock('../lib/events');
 jest.dontMock('../api/module-constructor.js');
 jest.dontMock('../api/module-public-constructor.js');
+jest.dontMock('../api/proxy-event-constructor.js');
