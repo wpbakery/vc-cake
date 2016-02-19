@@ -9,9 +9,9 @@ describe('check Module public API module', function() {
       expect(api[method]).toBeDefined();
     });
   });
-  it('check do via on how it works', function(){
-  		var Module = require('../../lib/module-public-api-constructor');
-  		var api = new Module('test');
-  		expect(api.on('test-event')).toBeDefined();
+  it('check do via on how it works', function() {
+    var Module = require('../../lib/module-public-api-constructor');
+    var api = new Module('test');
+    expect(api.on('test-event')).toBeDefined();
   });
 });

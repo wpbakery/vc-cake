@@ -4,6 +4,7 @@ var services = require('./lib/services');
 var events = require('./lib/events');
 var scopes = require('./lib/scopes');
 var ModuleAPI = require('./lib/module-api-constructor');
+var CakeException = require('./lib/exception');
 
 var start = false;
 /**
@@ -26,7 +27,11 @@ App.prototype.addService = function(name, obj) {
 App.prototype.env = function(key, value) {
   var returnValue = this;
   if (key && 'undefined' !== typeof value) {
-    enVars.set(key, value);
+    if ('start' === key) {
+      new CakeException().throw('Error! You can\'t set %s var. This var can be set only by app\'s start method', key);
+    } else {
+      enVars.set(key, value);
+    }
   } else if (key) {
     returnValue = enVars.get(key);
   }
@@ -38,8 +43,8 @@ App.prototype.start = function(fn) {
       fn();
     }
     scopes.load();
+    enVars.set('started', true);
     events.publish('app', 'event', 'start', true);
-    start = true;
   }
 };
 App.prototype.end = function() {

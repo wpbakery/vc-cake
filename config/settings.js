@@ -1,6 +1,6 @@
 var settings = {
   debug: !!process.env.DEBUG,
-  start: false
+  started: false
 };
 exports.env = {
   get: function(key) {
