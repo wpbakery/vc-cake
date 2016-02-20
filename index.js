@@ -5,8 +5,6 @@ var events = require('./lib/events');
 var scopes = require('./lib/scopes');
 var ModuleAPI = require('./lib/module-api-constructor');
 var CakeException = require('./lib/exception');
-
-var start = false;
 /**
  * @constructor
  */
@@ -38,7 +36,7 @@ App.prototype.env = function(key, value) {
   return returnValue;
 };
 App.prototype.start = function(fn) {
-  if (!start) {
+  if (false === enVars.get('started')) {
     if ('function' === typeof fn) {
       fn();
     }
@@ -46,15 +44,22 @@ App.prototype.start = function(fn) {
     enVars.set('started', true);
     events.publish('app', 'event', 'start', true);
   }
+  return this;
 };
-App.prototype.end = function() {
-  scopes.clear();
-  services.clear();
-  start = false;
-  events.request('end');
+App.prototype.end = function(fn) {
+  if (true === enVars.get('started')) {
+    if ('function' === typeof fn) {
+      fn();
+    }
+    scopes.clear();
+    services.clear();
+    enVars.set('started', false);
+    events.publish('app', 'event', 'end', true);
+  }
+  return this;
 };
 App.prototype.state = function() {
-  return start ? 'running' : 'stopped';
+  return enVars.get('started') ? 'running' : 'stopped';
 };
 App.prototype.remove = function(name) {
   scopes.remove(name);

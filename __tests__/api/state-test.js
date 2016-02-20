@@ -7,5 +7,6 @@ describe('running', function() {
       // test
     });
     expect(vcCake.state()).toBe('running');
+    expect(vcCake.end().state()).toBe('stopped');
   });
 });
