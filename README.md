@@ -46,8 +46,8 @@ API object passed to callback function via
 - **actions.{actionName}**
 - **module(moduleName)** - returns another Module API with limited amount of methods:
 	- **on(eventName, fn)**
+		- **do(actionName, ..atts)**
 	- **once(eventName, fn)**
-	- **do(actionName, ..atts)**
 
 
 

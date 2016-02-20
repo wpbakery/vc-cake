@@ -1,14 +1,14 @@
 var vcCake = require('../../index');
 
 module.exports = function(tests) {
-  Object.keys(tests).forEach(function(i) {
-    tests[i].callback(vcCake);
+  tests.forEach(function(action) {
+    action.callback(vcCake);
   });
   vcCake.start().end(function() {
-    Object.keys(tests).forEach(function(i) {
-      var action = tests[i];
+    tests.forEach(function(action) {
       it(action.comment, function() {
-          expect(action.value).toBe(action.toBe);
+          var expected = expect(action.value);
+          expected[action.expect || 'toBe'](action.toBe);
         });
     });
   });
