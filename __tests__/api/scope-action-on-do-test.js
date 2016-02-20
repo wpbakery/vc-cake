@@ -53,6 +53,20 @@ describe('running scope api check creating actions and using do/on chain', funct
               api.module('test-action-2').on('call-test-on').do('testAction2', settings.toBe);
             });
           }
+        },
+        {
+          comment: 'create 2 modules call do for action from another scipe',
+          value: false,
+          toBe: false,
+          callback: function(vcCake) {
+            var settings = this;
+            vcCake.add('test-action-4', function(api) {
+              api.notify('call-test-on-2');
+            });
+            vcCake.add('test-action-5', function(api) {
+              api.module('test-action-5').on('call-test-on-2').do('testActionNone', settings.toBe);
+            });
+          }        
         }
       ]);
 });

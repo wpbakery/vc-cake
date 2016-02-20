@@ -37,17 +37,19 @@ API object passed to callback function via
 
 ### App API methods for Module clouser
 
-- **request(eventName, data)** - global request to another modules to make interaction with a data send with this f
-- **reply(eventName, fn)**
-- **addAction(actionName, fn)**
-- **notify(eventName, data)**
-- **on(eventName, fn)**
-- **once(eventName, fn)**
-- **actions.{actionName}**
-- **module(moduleName)** - returns another Module API with limited amount of methods:
-	- **on(eventName, fn)**
+- **request(eventName, data)** - global request to system that module required any reply from any module;
+- **reply(eventName, fn)** - subscribe to global request from module, module scope can be the same;
+- **addAction(actionName, fn)** - create public function to work with module;s
+- **notify(eventName, data)** - publish module event;
+- **on(eventName, fn)** - subscribe to event inside module scope;
+	- **do(actionName, ..atts)**
+- **once(eventName, fn)** - subscribe to event inside module scope but reacts on event only once; 
+- **actions.{actionName}** - accessor to actions function inside module scope;
+- **module(moduleName)** - returns another Module API with limited amount of methods;
+	- **on(eventName, fn)** - subscribe to module event;
 		- **do(actionName, ..atts)**
-	- **once(eventName, fn)**
+	- **once(eventName, fn)** - subscribe to event but react on event only once;
+	- **actions** - get list of accessible actions for a module;
 
 
 
