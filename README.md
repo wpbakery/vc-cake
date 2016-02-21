@@ -1,7 +1,7 @@
 # vcCake
 vcCake is a small JavaScript library to use modular approach for building all types of apps.
 
-A VcCake application is managed by the *VcCake* object, whose job is to manage *modules* and *services*. It's the combination of objects that allow you to build a scalable Js front-end.
+VcCake application is managed by the *VcCake* object, whose job is to manage *modules* and *services*. It's the combination of objects that allow you to build a scalable Js front-end.
 
 What you can do with it. vcCake allows to communicate modules with each other or even group objects in one scope without tight coupling. 
 It is good for tests, because you can substitute any part or the system with a mockups and emulate interaction with modules with another module. 
@@ -18,7 +18,7 @@ Application has two ways for interactions:
 - request/reply or global scope events
 - notify/on or module scope events
 
-Every module recieves app api with a list of posible method.
+Every module recieves has an access to limited api with a list of posible methods.
 
 
 ## Service
@@ -32,28 +32,24 @@ vcCake.addService('service-name', {
 });
 ```
 ## Module
-Part of page(not always visible part of the page, but it has owen independent logic from all othe elements of the project), some modules can be coupled via modules API but it works via actions that works on events of requested module.
-API object passed to callback function via 
+A part of the page(not always visible part of the page, but it has owen independent logic from all othe elements of the project). Some modules can be coupled via modules API.
 
 ### App API methods for Module clouser
 
 - **request(eventName, data)** - global request to system that module required any reply from any module;
 - **reply(eventName, fn)** - subscribe to global request from module, module scope can be the same;
-- **addAction(actionName, fn)** - create public function to work with module;s
+- **addAction(actionName, fn)** - create public function to work with module;
 - **notify(eventName, data)** - publish module event;
 - **on(eventName, fn)** - subscribe to event inside module scope;
-	- **do(actionName, ..atts)**
+	- **do(actionName, ..atts)** - call module action;
 - **once(eventName, fn)** - subscribe to event inside module scope but reacts on event only once; 
 - **actions.{actionName}** - accessor to actions function inside module scope;
 - **module(moduleName)** - returns another Module API with limited amount of methods;
 	- **on(eventName, fn)** - subscribe to module event;
-		- **do(actionName, ..atts)**
+		- **do(actionName, ..atts)** - call module action;
 	- **once(eventName, fn)** - subscribe to event but react on event only once;
 	- **actions** - get list of accessible actions for a module;
 
-
-
-// Modules module-scope can be used simultanious.
 ```javascript
 vcCake.add('module-scope', function(api){
 	
@@ -76,7 +72,7 @@ vcCake.add('module-scope', function(api){
 	
 
 	// Like subscribe, module inner events
-	api.module('module-scope').on('module-event-name', function(m){
+	api.module('module-scope').on('module-event-name', function(){
 		...
 	});
 	// or you can just call do to call action
