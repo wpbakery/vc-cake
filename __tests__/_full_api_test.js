@@ -1,3 +1,4 @@
+/* global jest */
 jest.autoMockOff();
 /*jest.dontMock('../index');
 jest.dontMock('lodash');

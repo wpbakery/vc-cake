@@ -11,5 +11,6 @@ exports.env = {
   }
 };
 exports.constants = {
-  MODULE_TYPE: 'module'
+  MODULE_TYPE: 'module',
+  START_EVENT: 'start'
 };

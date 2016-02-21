@@ -1,5 +1,6 @@
 // Inner modules
 var enVars = require('./config/settings').env;
+var constants = require('./config/settings').constants;
 var services = require('./lib/services');
 var events = require('./lib/events');
 var scopes = require('./lib/scopes');
@@ -25,7 +26,7 @@ App.prototype.addService = function(name, obj) {
 App.prototype.env = function(key, value) {
   var returnValue = this;
   if (key && 'undefined' !== typeof value) {
-    if ('start' === key) {
+    if (constants.START_EVENT === key) {
       new CakeException().throw('Error! You can\'t set %s var. This var can be set only by app\'s start method', key);
     } else {
       enVars.set(key, value);
@@ -42,7 +43,7 @@ App.prototype.start = function(fn) {
     }
     scopes.load();
     enVars.set('started', true);
-    events.publish('app', 'event', 'start', true);
+    events.publish('app', 'event', constants.START_EVENT, true);
   }
   return this;
 };

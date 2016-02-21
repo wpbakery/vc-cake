@@ -21,7 +21,7 @@ describe('running scope api check on/once', function() {
           }
         },
         {
-          comment: 'create 2 modules and check on time subscription',
+          comment: 'create 2 modules and check once time subscription',
           value: 0,
           toBe: 1,
           callback: function(vcCake) {

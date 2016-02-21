@@ -1,5 +1,5 @@
 require('../_full_api_test');
-var methods = ['on', 'once'];
+var methods = ['do', 'on', 'once'];
 
 describe('check Module public API module', function() {
   methods.forEach(function(method) {
