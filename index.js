@@ -43,7 +43,7 @@ App.prototype.start = function(fn) {
     }
     scopes.load();
     enVars.set('started', true);
-    events.publish('app', 'event', constants.START_EVENT, true);
+    events.publish('app', 'event', constants.START_EVENT, true, {});
   }
   return this;
 };
@@ -55,7 +55,7 @@ App.prototype.end = function(fn) {
     scopes.clear();
     services.clear();
     enVars.set('started', false);
-    events.publish('app', 'event', 'end', true);
+    events.publish('app', 'event', 'end', true, {});
   }
   return this;
 };
