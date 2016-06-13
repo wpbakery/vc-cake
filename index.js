@@ -4,6 +4,7 @@ var constants = require('./config/settings').constants;
 var services = require('./lib/services');
 var events = require('./lib/events');
 var scopes = require('./lib/scopes');
+var state = require('./lib/state');
 var ModuleAPI = require('./lib/module-api-constructor');
 var CakeException = require('./lib/exception');
 /**
@@ -65,5 +66,15 @@ App.prototype.state = function() {
 App.prototype.remove = function(name) {
   scopes.remove(name);
 };
+App.prototype.getData = function(key) {
+  return state.get(key);
+};
+App.prototype.setData = function(key, value) {
+  state.set(key, value);
+  return this;
+}
+App.prototype.getDataAll = function() {
+  return state.info();
+}
 module.exports = new App();
 
