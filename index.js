@@ -72,9 +72,9 @@ App.prototype.getData = function(key) {
 App.prototype.setData = function(key, value) {
   state.set(key, value);
   return this;
-}
+};
 App.prototype.getDataAll = function() {
   return state.info();
-}
+};
 module.exports = new App();
 
