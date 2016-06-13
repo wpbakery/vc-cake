@@ -23,15 +23,20 @@ describe('App Data manage', function() {
   expect(vcCake.getData(key)).not.toBe(value);
   value = 'string_';
 
-  // Test immutability of complex object
+  // Test complex object
   var valueObject = {
     element: 'test1_',
     element2: 'test2_'
   };
   var keyObject = 'super_object_';
   vcCake.setData(keyObject, valueObject);
-  valueObject.element = 'should_fail_';
-  expect(vcCake.getData(keyObject).element).not.toBe(valueObject.element);
+  expect(vcCake.getData(keyObject).element).toBe(valueObject.element);
+
+  // Test array object
+  var valueObjectArray = ['test1_2', 'test2_2'];
+  var keyObjectArray = 'super_object_2';
+  vcCake.setData(keyObjectArray, valueObjectArray);
+  expect(vcCake.getData(keyObjectArray)[1]).toBe(valueObjectArray[1]);
 
   // Check info method
   var data = vcCake.getDataAll();
