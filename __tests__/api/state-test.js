@@ -1,12 +1,14 @@
-require('../_full_api_test');
+/* global describe, it, expect */
 
-describe('running', function() {
-  it('creates new app and start it. Check does it have a correct state', function() {
-    var vcCake = require('../../index');
-    vcCake.start(function() {
+require('../_full_api_test')
+
+describe('running', function () {
+  it('creates new app and start it. Check does it have a correct state', function () {
+    var vcCake = require('../../index')
+    vcCake.start(function () {
       // test
-    });
-    expect(vcCake.state()).toBe('running');
-    expect(vcCake.end().state()).toBe('stopped');
-  });
-});
+    })
+    expect(vcCake.state()).toBe('running')
+    expect(vcCake.end().state()).toBe('stopped')
+  })
+})

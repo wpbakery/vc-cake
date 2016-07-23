@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "test:style": "jscs index.js __tests__/*.js lib/*.js",
-    "test:js": "jshint --verbose index.js __tests__/*.js lib/*.js",
+    "test:style": "standard",
     "preversion": "npm test"
   },
   "repository": {
