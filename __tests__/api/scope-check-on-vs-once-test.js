@@ -13,7 +13,9 @@ describe('running scope api check on/once', function () {
       callback: function (vcCake) {
         var settings = this
         vcCake.add('test', function (api) {
-          times(settings.toBe, function () { api.notify('hello') })
+          times(settings.toBe, function () {
+            api.notify('hello')
+          })
         })
         vcCake.add('test-2', function (api) {
           api.module('test').on('hello', function () {
