@@ -76,6 +76,9 @@ App.prototype.setData = function (key, value) {
 App.prototype.onDataChange = function(key, fn, options) {
   state.onChange(key, fn, options)
 }
+App.prototype.ignoreDataChange = function(key, fn, options) {
+  state.ignoreChange(key, fn, options)
+}
 App.prototype.getDataAll = function () {
   return state.info()
 }
