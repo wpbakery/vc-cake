@@ -5,7 +5,7 @@ var services = require('./lib/services')
 var events = require('./lib/events')
 var scopes = require('./lib/scopes')
 var state = require('./lib/state')
-var storages = require('./lib/storages')
+// var storages = require('./lib/storages')
 var ModuleAPI = require('./lib/module-api-constructor')
 var CakeException = require('./lib/exception')
 /**
@@ -83,7 +83,9 @@ App.prototype.ignoreDataChange = function(key, fn, options) {
 App.prototype.getDataAll = function () {
   return state.info()
 }
+/*
 App.prototype.getStorage = function (name) {
   return storages.get(name)
 }
+*/
 module.exports = new App()
