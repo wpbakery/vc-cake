@@ -30,7 +30,8 @@
   },
   "devDependencies": {
     "jest-cli": "^0.8.2",
-    "jscs": "^2.9.0"
+    "jscs": "^2.9.0",
+    "pre-commit": "^1.2.2"
   },
   "jest": {
     "unmockedModulePathPatterns": [
