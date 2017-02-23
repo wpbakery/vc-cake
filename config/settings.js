@@ -12,5 +12,6 @@ exports.env = {
 }
 exports.constants = {
   MODULE_TYPE: 'module',
+  STORAGE_TYPE: 'storage',
   START_EVENT: 'start'
 }
