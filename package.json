@@ -7,7 +7,7 @@
     "test": "jest",
     "test:style": "standard",
     "preversion": "npm test",
-    "precommit": "npm test"
+    "precommit": "npm test && standard"
   },
   "repository": {
     "type": "git",
