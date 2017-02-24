@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "test:style": "standard",
-    "preversion": "npm test"
+    "preversion": "npm test",
+    "precommit": "npm test"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "murmurhash": "0.0.2"
   },
   "devDependencies": {
+    "husky": "^0.13.1",
     "jest-cli": "^0.8.2",
     "jscs": "^2.9.0",
     "pre-commit": "^1.2.2"

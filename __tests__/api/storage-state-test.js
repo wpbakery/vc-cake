@@ -11,7 +11,7 @@ describe('Storage states', function () {
     stateChecking.set(testValue)
     expect(stateChecking.get()).toBe(testValue)
   })
-  it('creates new storage with a new state. Check does onChange is triggered when new data set.', function() {
+  it('creates new storage with a new state. Check does onChange is triggered when new data set.', function () {
     var vcCake = require('../../index')
     var testValue = 'new value 2'
     var test = vcCake.getStorage('test')
@@ -21,7 +21,7 @@ describe('Storage states', function () {
     })
     stateChecking.set(testValue)
   })
-  it('creates new storage with a new state. Check does ignore Changes is triggered when new data set.', function() {
+  it('creates new storage with a new state. Check does ignore Changes is triggered when new data set.', function () {
     var vcCake = require('../../index')
     var testValue = 'new value 2'
     var test = vcCake.getStorage('test')
