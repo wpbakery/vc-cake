@@ -86,4 +86,7 @@ App.prototype.getDataAll = function () {
 App.prototype.getStorage = function (name) {
   return storages.get(name)
 }
+App.prototype.addStorage = function (name, fn) {
+  return storages.add(name, fn)
+}
 module.exports = new App()

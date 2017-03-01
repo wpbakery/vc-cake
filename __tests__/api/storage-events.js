@@ -13,18 +13,17 @@ describe('running storage on/off', function () {
       callback: function (vcCake) {
         var settings = this
         vcCake.add('test', function () {
-          var testStorage = vcCake.getStorage('test')
+          var testStorage = vcCake.getStorage('test-0')
           times(settings.toBe + 1, function () { testStorage.trigger(actionName) })
         })
-        vcCake.add('test-2', function () {
-          var testStorage = vcCake.getStorage('test')
+        vcCake.addStorage('test-0', function (storage) {
           var callbackFunction = function () {
             settings.value += 1
             if (settings.value === 2) {
-              testStorage.off(actionName, callbackFunction)
+              storage.off(actionName, callbackFunction)
             }
           }
-          testStorage.on(actionName, callbackFunction)
+          storage.on(actionName, callbackFunction)
         })
       }
     },
@@ -35,35 +34,34 @@ describe('running storage on/off', function () {
       callback: function (vcCake) {
         var settings = this
         vcCake.add('test', function () {
-          var testStorage = vcCake.getStorage('test')
+          var testStorage = vcCake.getStorage('test-1')
           times(settings.toBe + 3, function () { testStorage.trigger(actionName) })
         })
-        vcCake.add('test-2', function () {
-          var testStorage = vcCake.getStorage('test')
+        vcCake.addStorage('test-1', function (storage) {
           var callbackFunction = function () {
             settings.value += 1
           }
-          testStorage.once(actionName, callbackFunction)
+          storage.once(actionName, callbackFunction)
         })
       }
     },
     {
       comment: 'creates modules and checks storage off once method',
       value: 0,
-      toBe: 0,
+      toBe: 1,
       callback: function (vcCake) {
         var settings = this
         vcCake.add('test', function () {
-          var testStorage = vcCake.getStorage('test')
+          var testStorage = vcCake.getStorage('test-2')
           times(settings.toBe + 3, function () { testStorage.trigger(actionName) })
         })
-        vcCake.add('test-2', function () {
-          var testStorage = vcCake.getStorage('test')
+        vcCake.addStorage('test-2', function (storage) {
+          settings.value += 1
           var callbackFunction = function () {
             settings.value += 1
           }
-          testStorage.once(actionName, callbackFunction)
-          testStorage.offOnce(actionName, callbackFunction)
+          storage.once(actionName, callbackFunction)
+          storage.offOnce(actionName, callbackFunction)
         })
       }
     }
