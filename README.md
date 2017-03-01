@@ -1,4 +1,5 @@
-# vcCake
+# vcCake &middot; [![Build Status](https://travis-ci.org/wpbakery/vc-cake.svg?branch=master)](https://travis-ci.org/wpbakery/vc-cake)
+
 vcCake is a small JavaScript library to use modular approach for building all types of apps.
 
 VcCake application is managed by the *VcCake* object, whose job is to manage *modules* and *services*. It's the combination of objects that allow you to build a scalable Js front-end.
