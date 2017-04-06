@@ -16,6 +16,9 @@ var App = function () {
 
 App.prototype.add = function (scope, fn) {
   scopes.add(scope, fn, new ModuleAPI(scope))
+  if (enVars.get('started')) {
+    scopes.load()
+  }
   return this
 }
 App.prototype.getService = function (name) {
@@ -46,6 +49,10 @@ App.prototype.start = function (fn) {
     scopes.load()
     enVars.set('started', true)
     events.publish('app', 'event', constants.START_EVENT, true, {})
+  } else {
+    if (typeof fn === 'function') {
+      fn()
+    }
   }
   return this
 }
