@@ -12,13 +12,13 @@ describe('running scope api check on/once', function () {
       toBe: 3,
       callback: function (vcCake) {
         var settings = this
-        vcCake.add('test', function (api) {
+        vcCake.add('test-1', function (api) {
           times(settings.toBe, function () {
             api.notify('hello')
           })
         })
         vcCake.add('test-2', function (api) {
-          api.module('test').on('hello', function () {
+          api.module('test-1').on('hello', function () {
             settings.value++
           })
         })
@@ -30,11 +30,11 @@ describe('running scope api check on/once', function () {
       toBe: 1,
       callback: function (vcCake) {
         var settings = this
-        vcCake.add('test', function (api) {
+        vcCake.add('test-3', function (api) {
           times(settings.toBe * 4, function () { api.notify('hello-once') })
         })
-        vcCake.add('test-2', function (api) {
-          api.module('test').once('hello-once', function () {
+        vcCake.add('test-4', function (api) {
+          api.module('test-3').once('hello-once', function () {
             settings.value++
           })
         })

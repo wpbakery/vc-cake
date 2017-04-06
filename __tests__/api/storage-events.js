@@ -12,7 +12,7 @@ describe('running storage on/off', function () {
       toBe: 2,
       callback: function (vcCake) {
         var settings = this
-        vcCake.add('test', function () {
+        vcCake.add('test-storage-1', function () {
           var testStorage = vcCake.getStorage('test-0')
           times(settings.toBe + 1, function () { testStorage.trigger(actionName) })
         })
@@ -33,7 +33,7 @@ describe('running storage on/off', function () {
       toBe: 1,
       callback: function (vcCake) {
         var settings = this
-        vcCake.add('test', function () {
+        vcCake.add('test-storage-2', function () {
           var testStorage = vcCake.getStorage('test-1')
           times(settings.toBe + 3, function () { testStorage.trigger(actionName) })
         })
@@ -51,7 +51,7 @@ describe('running storage on/off', function () {
       toBe: 1,
       callback: function (vcCake) {
         var settings = this
-        vcCake.add('test', function () {
+        vcCake.add('test-storage-3', function () {
           var testStorage = vcCake.getStorage('test-2')
           times(settings.toBe + 3, function () { testStorage.trigger(actionName) })
         })
