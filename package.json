@@ -1,6 +1,6 @@
 {
   "name": "vc-cake",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "description": "Modular approach for javascript based projects from WPBakery",
   "main": "index.js",
   "scripts": {
