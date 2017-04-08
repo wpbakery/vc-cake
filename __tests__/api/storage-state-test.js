@@ -38,4 +38,12 @@ describe('Storage states', function () {
     stateChecking.set('newValue not observable value')
     expect(counter).toBe(1)
   })
+  it('add storage state and then remove it', function () {
+    var vcCake = require('../../index')
+    var testValue = 'value to delete'
+    var testStorage = vcCake.getStorage('test')
+    testStorage.state('testing').set(testValue)
+    testStorage.state('testing').delete()
+    expect(testStorage.state('testing').get()).toBe(undefined)
+  })
 })
