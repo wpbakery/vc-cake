@@ -42,16 +42,22 @@ App.prototype.env = function (key, value) {
   return returnValue
 }
 App.prototype.start = function (fn) {
-  if (enVars.get('started') === false) {
-    if (typeof fn === 'function') {
-      fn()
+  try {
+    if (enVars.get('started') === false) {
+      if (typeof fn === 'function') {
+        fn()
+      }
+      scopes.load()
+      enVars.set('started', true)
+      events.publish('app', 'event', constants.START_EVENT, true, {})
+    } else {
+      if (typeof fn === 'function') {
+        fn()
+      }
     }
-    scopes.load()
-    enVars.set('started', true)
-    events.publish('app', 'event', constants.START_EVENT, true, {})
-  } else {
-    if (typeof fn === 'function') {
-      fn()
+  } catch (e) {
+    if (enVars.get('debug')) {
+      throw e
     }
   }
   return this
