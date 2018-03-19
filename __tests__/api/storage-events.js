@@ -64,6 +64,53 @@ describe('running storage on/off', function () {
           storage.offOnce(actionName, callbackFunction)
         })
       }
+    },
+    {
+      comment: 'creates storage and checks storage trigger/on method in public',
+      value: 0,
+      toBe: 3,
+      callback: function (vcCake) {
+        var settings = this
+        var testStorage = vcCake.getStorage('test-a')
+        var eventName = 'testPublicEvent'
+        var counter = 1
+        testStorage.on(eventName, function (value) {
+          settings.value = value
+        })
+        times(settings.toBe, function () { testStorage.trigger(eventName, counter++) })
+      }
+    },
+    {
+      comment: 'creates storage and checks storage once method in public',
+      value: 0,
+      toBe: 1,
+      callback: function (vcCake) {
+        var settings = this
+        var testStorage = vcCake.getStorage('test-b')
+        var eventName = 'testPublicEventOnce'
+        var counterZ = 1
+        testStorage.once(eventName, function (value) {
+          settings.value = value
+        })
+        times(settings.toBe + 3, function () { testStorage.trigger(eventName, counterZ++) })
+      }
+    },
+    {
+      comment: 'creates storage and checks storage off method in public',
+      value: 0,
+      toBe: 1,
+      callback: function (vcCake) {
+        var settings = this
+        var testStorage = vcCake.getStorage('test-c')
+        var eventName = 'testPublicEventOff'
+        var counterX = 1
+        var callBackFunction = function (value) {
+          settings.value = value
+          testStorage.off(eventName, callBackFunction)
+        }
+        testStorage.on(eventName, callBackFunction)
+        times(settings.toBe + 3, function () { testStorage.trigger(eventName, counterX++) })
+      }
     }
   ])
 })
