@@ -43,7 +43,7 @@ A part of the page(not always visible part of the page, but it has owen independ
 - **notify(eventName, data)** - publish module event;
 - **on(eventName, fn)** - subscribe to event inside module scope;
 	- **do(actionName, ..atts)** - call module action;
-- **once(eventName, fn)** - subscribe to event inside module scope but reacts on event only once; 
+- **once(eventName, fn)** - subscribe to event inside module scope but react on event only once; 
 - **actions.{actionName}** - accessor to actions function inside module scope;
 - **module(moduleName)** - returns another Module API with limited amount of methods;
 	- **on(eventName, fn)** - subscribe to module event;
@@ -83,3 +83,25 @@ vcCake.add('module-scope', function(api){
 	    .do('module-action-name', ...attrsMaybePassed);
 });
 ```
+## Storage
+Event-driven services allow storing states and trigger events.
+
+To create storage call `vcCake.addStorage(storageKey, fn)` but it isn't required to create storage.
+
+To use storage call `vcCake.getStorage(storageKey)`.
+
+### App API methods for storage service
+
+- **state(stateKey)** - get state of the storage by key;
+	- **get()** - get state value;
+	- **set(value)** - set state value;
+	- **onChange(stateKey, fn)** - subscribe callback function to state change;
+	- **ignoreChange(stateKey, fn)** - unsubscribe callback function to state change;
+	- **delete(stateKey)** - delete state;
+- **on(eventName, fn)** - subscribe to event;
+- **off(eventName)** - unsubscribe to storage event;
+- **once(eventName, fn)** - subscribe to event but react on event only once;
+- **offOnce(eventName)** - unsubscribe to storage once event;
+- **trigger(eventName, data)** - publish storage event;
+
+You can use all these methods inside function callback when you create new storage via `vcCake.addStorage(storageKey, fn)`.
