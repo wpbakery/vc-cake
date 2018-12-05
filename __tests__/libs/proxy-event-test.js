@@ -6,7 +6,7 @@ describe('check Proxy event', function () {
     var ProxyEvent = require('../../lib/proxy-event-constructor')
     var eventName = 'test-event'
     var testValue = 'hello'
-    var proxy = new ProxyEvent({name: eventName, once: true})
+    var proxy = new ProxyEvent({ name: eventName, once: true })
     expect(proxy.getName()).toBe(eventName)
     expect(proxy.callOnce()).toBe(true)
     proxy.set('test', testValue)
@@ -15,9 +15,8 @@ describe('check Proxy event', function () {
   it('create new proxy event and delete this get console result on this', function () {
     var ProxyEvent = require('../../lib/proxy-event-constructor')
     var test = {
-      p: new ProxyEvent({name: 'test'})
+      p: new ProxyEvent({ name: 'test' })
     }
     expect(delete test.p).toBe(true)
   })
 })
-

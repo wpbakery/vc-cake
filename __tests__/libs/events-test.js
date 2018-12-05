@@ -9,4 +9,3 @@ describe('check Events module methods', function () {
     })
   })
 })
-

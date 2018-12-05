@@ -24,7 +24,7 @@ describe('Storage states', function () {
   it('creates new storage with a new state. Check does ignore Changes is triggered when new data set.', function () {
     var vcCake = require('../../index')
     var testValue = 'new value 2'
-    var test = vcCake.getStorage('test')
+    var test = vcCake.getStorage('testIgnore')
     var stateChecking = test.state('checking')
     var counter = 0
 
