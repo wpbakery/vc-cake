@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "test:style": "npx standard",
+    "test:style": "standard",
     "preversion": "npm test",
     "precommit": "npm test && standard"
   },
