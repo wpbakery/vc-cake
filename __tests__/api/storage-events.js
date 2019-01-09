@@ -111,6 +111,123 @@ describe('running storage on/off', function () {
         testStorage.on(eventName, callBackFunction)
         times(settings.toBe + 3, function () { testStorage.trigger(eventName, counterX++) })
       }
+    },
+    {
+      comment: 'check multiple events',
+      value: 0,
+      toBe: 1,
+      callback: function (vcCake) {
+        var settings = this
+        var testStorage = vcCake.getStorage('test-d')
+        var eventName = 'test_custom_event test_custom_event2'
+        var counterX = 1
+        var callBackFunction = function (value) {
+          settings.value = value
+          testStorage.off(eventName, callBackFunction)
+        }
+        testStorage.on(eventName, callBackFunction)
+        times(settings.toBe + 3, function () { testStorage.trigger('test_custom_event2', counterX++) })
+      }
+    },
+    {
+      comment: 'check multiple events with spaces',
+      value: 0,
+      toBe: 1,
+      callback: function (vcCake) {
+        var settings = this
+        var testStorage = vcCake.getStorage('test-d')
+        var eventName = 'test_custom_event    test_custom_event2   '
+        var counterX = 1
+        var callBackFunction = function (value) {
+          settings.value = value
+          testStorage.off(eventName, callBackFunction)
+        }
+        testStorage.on(eventName, callBackFunction)
+        times(settings.toBe + 3, function () { testStorage.trigger('test_custom_event2', counterX++) })
+      }
+    },
+    {
+      comment: 'check multiple events off',
+      value: 0,
+      toBe: 1,
+      callback: function (vcCake) {
+        var settings = this
+        var testStorage = vcCake.getStorage('test-e')
+        var eventName = 'test_custom_event test_custom_event2'
+        var counterX = 1
+        var callBackFunction = function (value) {
+          settings.value = value
+          testStorage.off(eventName, callBackFunction)
+        }
+        testStorage.on(eventName, callBackFunction)
+        times(settings.toBe + 3, function () {
+          testStorage.trigger('test_custom_event2', counterX++)
+          testStorage.trigger('test_custom_event', counterX++)
+        })
+      }
+    },
+    {
+      comment: 'check multiple events off single',
+      value: 0,
+      toBe: 3,
+      callback: function (vcCake) {
+        var settings = this
+        var testStorage = vcCake.getStorage('test-f')
+        var eventName = 'testf_custom_event testf_custom_event2'
+        var counterX = 1
+        var callBackFunction = function (value) {
+          settings.value = value
+          testStorage.off('testf_custom_event', callBackFunction)
+        }
+        testStorage.on(eventName, callBackFunction)
+        times(3, function () {
+          testStorage.trigger('testf_custom_event2', counterX)
+          testStorage.trigger('testf_custom_event', counterX)
+          counterX++
+        })
+      }
+    },
+    {
+      comment: 'check multiple events with spaces',
+      value: 0,
+      toBe: 3,
+      callback: function (vcCake) {
+        var settings = this
+        var testStorage = vcCake.getStorage('test-g')
+        var eventName = 'testg_custom_event     testg_custom_event2'
+        var counterX = 1
+        var callBackFunction = function (value) {
+          settings.value = value
+          testStorage.off('testg_custom_event', callBackFunction)
+        }
+        testStorage.on(eventName, callBackFunction)
+        times(3, function () {
+          testStorage.trigger('testg_custom_event2', counterX)
+          testStorage.trigger('testg_custom_event', counterX)
+          counterX++
+        })
+      }
+    },
+    {
+      comment: 'check multiple events with spaces at end',
+      value: 0,
+      toBe: 3,
+      callback: function (vcCake) {
+        var settings = this
+        var testStorage = vcCake.getStorage('test-h')
+        var eventName = 'testh_custom_event     testh_custom_event2    '
+        var counterX = 1
+        var callBackFunction = function (value) {
+          settings.value = value
+          testStorage.off('testh_custom_event', callBackFunction)
+        }
+        testStorage.on(eventName, callBackFunction)
+        times(3, function () {
+          testStorage.trigger('testh_custom_event2', counterX)
+          testStorage.trigger('testh_custom_event', counterX)
+          counterX++
+        })
+      }
     }
   ])
 })
