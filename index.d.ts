@@ -41,7 +41,7 @@ export module 'vc-cake' {
 
     export function addService (name: string, obj: any): void
 
-    export function env (key: string, value: any): any
+    export function env (key: string, value?: any): any
 
     export function start (fn: Function): void
 
