@@ -4,8 +4,8 @@ require('../_full_api_test')
 
 describe('add service', function () {
   it('creates new service. Check does it exists', function () {
-    var vcCake = require('../../index')
-    var service = {
+    const vcCake = require('../../index')
+    const service = {
       test: function () {
         return 'testString'
       }

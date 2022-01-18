@@ -4,31 +4,31 @@ require('../_full_api_test')
 
 describe('Storage states', function () {
   it('creates new storage with a new state. Does it stores value.', function () {
-    var vcCake = require('../../index')
-    var testValue = 'new value'
-    var test = vcCake.getStorage('test')
-    var stateChecking = test.state('checking')
+    const vcCake = require('../../index')
+    const testValue = 'new value'
+    const test = vcCake.getStorage('test')
+    const stateChecking = test.state('checking')
     stateChecking.set(testValue)
     expect(stateChecking.get()).toBe(testValue)
   })
   it('creates new storage with a new state. Check does onChange is triggered when new data set.', function () {
-    var vcCake = require('../../index')
-    var testValue = 'new value 2'
-    var test = vcCake.getStorage('test')
-    var stateChecking = test.state('checking')
+    const vcCake = require('../../index')
+    const testValue = 'new value 2'
+    const test = vcCake.getStorage('test')
+    const stateChecking = test.state('checking')
     stateChecking.onChange(function (value) {
       expect(value).toBe(testValue)
     })
     stateChecking.set(testValue)
   })
   it('creates new storage with a new state. Check does ignore Changes is triggered when new data set.', function () {
-    var vcCake = require('../../index')
-    var testValue = 'new value 2'
-    var test = vcCake.getStorage('testIgnore')
-    var stateChecking = test.state('checking')
-    var counter = 0
+    const vcCake = require('../../index')
+    const testValue = 'new value 2'
+    const test = vcCake.getStorage('testIgnore')
+    const stateChecking = test.state('checking')
+    let counter = 0
 
-    var callbackToCall = function (value) {
+    const callbackToCall = function (value) {
       expect(value).toBe(testValue)
       counter += 1
     }
@@ -39,9 +39,9 @@ describe('Storage states', function () {
     expect(counter).toBe(1)
   })
   it('add storage state and then remove it', function () {
-    var vcCake = require('../../index')
-    var testValue = 'value to delete'
-    var testStorage = vcCake.getStorage('test')
+    const vcCake = require('../../index')
+    const testValue = 'value to delete'
+    const testStorage = vcCake.getStorage('test')
     testStorage.state('testing').set(testValue)
     testStorage.state('testing').delete()
     expect(testStorage.state('testing').get()).toBe(undefined)

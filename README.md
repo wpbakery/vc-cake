@@ -55,7 +55,7 @@ A part of the page(not always visible part of the page, but it has owen independ
 vcCake.add('module-scope', function(api){
 	
 	// Like publish global events
-	var data = api.service('service-name').methodToGetData();
+	let data = api.service('service-name').methodToGetData();
 	api.request('event-name', data);
 	
 	// Like subscribe global events

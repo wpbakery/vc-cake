@@ -1,9 +1,9 @@
 /* global describe */
 
-var times = require('lodash').times
+const times = require('lodash').times
 
 require('../_full_api_test')
-var testEvents = require('../test-libs/test-events')
+const testEvents = require('../test-libs/test-events')
 describe('running scope api check on/once', function () {
   testEvents([
     {
@@ -11,7 +11,7 @@ describe('running scope api check on/once', function () {
       value: 0,
       toBe: 3,
       callback: function (vcCake) {
-        var settings = this
+        const settings = this
         vcCake.add('test-1', function (api) {
           times(settings.toBe, function () {
             api.notify('hello')
@@ -29,7 +29,7 @@ describe('running scope api check on/once', function () {
       value: 0,
       toBe: 1,
       callback: function (vcCake) {
-        var settings = this
+        const settings = this
         vcCake.add('test-3', function (api) {
           times(settings.toBe * 4, function () { api.notify('hello-once') })
         })

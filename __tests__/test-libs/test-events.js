@@ -1,6 +1,6 @@
 /* global it, expect */
 
-var vcCake = require('../../index')
+const vcCake = require('../../index')
 
 module.exports = function (tests) {
   tests.forEach(function (action) {
@@ -9,7 +9,7 @@ module.exports = function (tests) {
   vcCake.start().end(function () {
     tests.forEach(function (action) {
       it(action.comment, function () {
-        var expected = expect(action.value)
+        const expected = expect(action.value)
         expected[action.expect || 'toBe'](action.toBe)
       })
     })
