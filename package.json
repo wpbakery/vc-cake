@@ -1,13 +1,11 @@
 {
   "name": "vc-cake",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Modular approach for javascript based projects from WPBakery",
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "test:style": "standard",
-    "preversion": "npm test",
-    "precommit": "npm test && standard"
+    "test:style": "standard"
   },
   "repository": {
     "type": "git",
@@ -30,7 +28,6 @@
     "murmurhash": "2.0.0"
   },
   "devDependencies": {
-    "husky": "7.0.4",
     "jest-cli": "27.4.7",
     "jscs": "3.0.7",
     "standard": "16.0.4"
