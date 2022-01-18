@@ -1,7 +1,7 @@
 /* global describe */
 
 require('../_full_api_test')
-var testEvents = require('../test-libs/test-events')
+const testEvents = require('../test-libs/test-events')
 describe('running scope api check request/reply', function () {
   testEvents([
     {
@@ -9,7 +9,7 @@ describe('running scope api check request/reply', function () {
       value: false,
       toBe: true,
       callback: function (vcCake) {
-        var settings = this
+        const settings = this
         vcCake.add('test', function (api) {
           api.request('hello')
         })
@@ -25,7 +25,7 @@ describe('running scope api check request/reply', function () {
       value: false,
       toBe: true,
       callback: function (vcCake) {
-        var settings = this
+        const settings = this
         vcCake.add('test-same', function (api) {
           api.reply('hello', function () {
             settings.value = settings.toBe

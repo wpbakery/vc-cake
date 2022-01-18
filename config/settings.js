@@ -1,4 +1,4 @@
-var settings = {
+const settings = {
   debug: !!process.env.DEBUG,
   started: false
 }

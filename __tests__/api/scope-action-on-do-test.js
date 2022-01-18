@@ -1,7 +1,7 @@
 /* global describe */
 
 require('../_full_api_test')
-var testEvents = require('../test-libs/test-events')
+const testEvents = require('../test-libs/test-events')
 describe('running scope api check creating actions and using do/on chain', function () {
   testEvents([
     {
@@ -9,7 +9,7 @@ describe('running scope api check creating actions and using do/on chain', funct
       value: false,
       toBe: true,
       callback: function (vcCake) {
-        var settings = this
+        const settings = this
         vcCake.add('test-action', function (api) {
           api.addAction('testAction', function (toBe) {
             settings.value = toBe
@@ -26,7 +26,7 @@ describe('running scope api check creating actions and using do/on chain', funct
       toBe: ['testActionX', 'testActionY'],
       expect: 'toEqual',
       callback: function (vcCake) {
-        var settings = this
+        const settings = this
         vcCake.add('test-action-list', function (api) {
           settings.toBe.forEach(function (action) {
             api.addAction(action, function () {
@@ -44,7 +44,7 @@ describe('running scope api check creating actions and using do/on chain', funct
       value: false,
       toBe: 'yes-it-is-test',
       callback: function (vcCake) {
-        var settings = this
+        const settings = this
         vcCake.add('test-action-2', function (api) {
           api.addAction('testAction2', function (toBe) {
             settings.value = toBe
@@ -61,7 +61,7 @@ describe('running scope api check creating actions and using do/on chain', funct
       value: false,
       toBe: false,
       callback: function (vcCake) {
-        var settings = this
+        const settings = this
         vcCake.add('test-action-4', function (api) {
           api.notify('call-test-on-2')
         })

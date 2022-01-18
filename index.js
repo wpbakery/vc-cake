@@ -1,17 +1,17 @@
 // Inner modules
-var enVars = require('./config/settings').env
-var constants = require('./config/settings').constants
-var services = require('./lib/services')
-var events = require('./lib/events')
-var scopes = require('./lib/scopes')
-var state = require('./lib/state')
-var storages = require('./lib/storages')
-var ModuleAPI = require('./lib/module-api-constructor')
-var CakeException = require('./lib/exception')
+const enVars = require('./config/settings').env
+const constants = require('./config/settings').constants
+const services = require('./lib/services')
+const events = require('./lib/events')
+const scopes = require('./lib/scopes')
+const state = require('./lib/state')
+const storages = require('./lib/storages')
+const ModuleAPI = require('./lib/module-api-constructor')
+const CakeException = require('./lib/exception')
 /**
  * @constructor
  */
-var App = function () {
+const App = function () {
 }
 
 App.prototype.add = function (scope, fn) {
@@ -29,10 +29,10 @@ App.prototype.addService = function (name, obj) {
   return this
 }
 App.prototype.env = function (key, value) {
-  var returnValue = this
+  let returnValue = this
   if (key && typeof value !== 'undefined') {
     if (constants.START_EVENT === key) {
-      new CakeException().throw('Error! You can\'t set %s var. This var can be set only by app\'s start method', key)
+      new CakeException().throw('Error! You can\'t set %s var. This let can be set only by app\'s start method', key)
     } else {
       enVars.set(key, value)
     }

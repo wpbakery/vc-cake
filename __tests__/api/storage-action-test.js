@@ -4,8 +4,8 @@ require('../_full_api_test')
 
 describe('Storage actions', function () {
   it('creates new storage with a new action. Does it update value', function () {
-    var vcCake = require('../../index')
-    var test = vcCake.getStorage('test')
+    const vcCake = require('../../index')
+    const test = vcCake.getStorage('test')
     test.registerAction('multiply', function (x, y) {
       return x * y
     })

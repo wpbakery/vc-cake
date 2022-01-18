@@ -1,23 +1,23 @@
 /* global describe */
-var times = require('lodash').times
+const times = require('lodash').times
 
 require('../_full_api_test')
-var testEvents = require('../test-libs/test-events')
+const testEvents = require('../test-libs/test-events')
 describe('running storage on/off', function () {
-  var actionName = 'testAction'
+  const actionName = 'testAction'
   testEvents([
     {
       comment: 'creates modules and checks storage events on/off',
       value: 0,
       toBe: 2,
       callback: function (vcCake) {
-        var settings = this
+        const settings = this
         vcCake.add('test-storage-1', function () {
-          var testStorage = vcCake.getStorage('test-0')
+          const testStorage = vcCake.getStorage('test-0')
           times(settings.toBe + 1, function () { testStorage.trigger(actionName) })
         })
         vcCake.addStorage('test-0', function (storage) {
-          var callbackFunction = function () {
+          const callbackFunction = function () {
             settings.value += 1
             if (settings.value === 2) {
               storage.off(actionName, callbackFunction)
@@ -32,13 +32,13 @@ describe('running storage on/off', function () {
       value: 0,
       toBe: 1,
       callback: function (vcCake) {
-        var settings = this
+        const settings = this
         vcCake.add('test-storage-2', function () {
-          var testStorage = vcCake.getStorage('test-1')
+          const testStorage = vcCake.getStorage('test-1')
           times(settings.toBe + 3, function () { testStorage.trigger(actionName) })
         })
         vcCake.addStorage('test-1', function (storage) {
-          var callbackFunction = function () {
+          const callbackFunction = function () {
             settings.value += 1
           }
           storage.once(actionName, callbackFunction)
@@ -50,14 +50,14 @@ describe('running storage on/off', function () {
       value: 0,
       toBe: 1,
       callback: function (vcCake) {
-        var settings = this
+        const settings = this
         vcCake.add('test-storage-3', function () {
-          var testStorage = vcCake.getStorage('test-2')
+          const testStorage = vcCake.getStorage('test-2')
           times(settings.toBe + 3, function () { testStorage.trigger(actionName) })
         })
         vcCake.addStorage('test-2', function (storage) {
           settings.value += 1
-          var callbackFunction = function () {
+          const callbackFunction = function () {
             settings.value += 1
           }
           storage.once(actionName, callbackFunction)
@@ -70,10 +70,10 @@ describe('running storage on/off', function () {
       value: 0,
       toBe: 3,
       callback: function (vcCake) {
-        var settings = this
-        var testStorage = vcCake.getStorage('test-a')
-        var eventName = 'testPublicEvent'
-        var counter = 1
+        const settings = this
+        const testStorage = vcCake.getStorage('test-a')
+        const eventName = 'testPublicEvent'
+        let counter = 1
         testStorage.on(eventName, function (value) {
           settings.value = value
         })
@@ -85,10 +85,10 @@ describe('running storage on/off', function () {
       value: 0,
       toBe: 1,
       callback: function (vcCake) {
-        var settings = this
-        var testStorage = vcCake.getStorage('test-b')
-        var eventName = 'testPublicEventOnce'
-        var counterZ = 1
+        const settings = this
+        const testStorage = vcCake.getStorage('test-b')
+        const eventName = 'testPublicEventOnce'
+        let counterZ = 1
         testStorage.once(eventName, function (value) {
           settings.value = value
         })
@@ -100,11 +100,11 @@ describe('running storage on/off', function () {
       value: 0,
       toBe: 1,
       callback: function (vcCake) {
-        var settings = this
-        var testStorage = vcCake.getStorage('test-c')
-        var eventName = 'testPublicEventOff'
-        var counterX = 1
-        var callBackFunction = function (value) {
+        const settings = this
+        const testStorage = vcCake.getStorage('test-c')
+        const eventName = 'testPublicEventOff'
+        let counterX = 1
+        const callBackFunction = function (value) {
           settings.value = value
           testStorage.off(eventName, callBackFunction)
         }
@@ -117,11 +117,11 @@ describe('running storage on/off', function () {
       value: 0,
       toBe: 1,
       callback: function (vcCake) {
-        var settings = this
-        var testStorage = vcCake.getStorage('test-d')
-        var eventName = 'test_custom_event test_custom_event2'
-        var counterX = 1
-        var callBackFunction = function (value) {
+        const settings = this
+        const testStorage = vcCake.getStorage('test-d')
+        const eventName = 'test_custom_event test_custom_event2'
+        let counterX = 1
+        const callBackFunction = function (value) {
           settings.value = value
           testStorage.off(eventName, callBackFunction)
         }
@@ -134,11 +134,11 @@ describe('running storage on/off', function () {
       value: 0,
       toBe: 1,
       callback: function (vcCake) {
-        var settings = this
-        var testStorage = vcCake.getStorage('test-d')
-        var eventName = 'test_custom_event    test_custom_event2   '
-        var counterX = 1
-        var callBackFunction = function (value) {
+        const settings = this
+        const testStorage = vcCake.getStorage('test-d')
+        const eventName = 'test_custom_event    test_custom_event2   '
+        let counterX = 1
+        const callBackFunction = function (value) {
           settings.value = value
           testStorage.off(eventName, callBackFunction)
         }
@@ -151,11 +151,11 @@ describe('running storage on/off', function () {
       value: 0,
       toBe: 1,
       callback: function (vcCake) {
-        var settings = this
-        var testStorage = vcCake.getStorage('test-e')
-        var eventName = 'test_custom_event test_custom_event2'
-        var counterX = 1
-        var callBackFunction = function (value) {
+        const settings = this
+        const testStorage = vcCake.getStorage('test-e')
+        const eventName = 'test_custom_event test_custom_event2'
+        let counterX = 1
+        const callBackFunction = function (value) {
           settings.value = value
           testStorage.off(eventName, callBackFunction)
         }
@@ -171,11 +171,11 @@ describe('running storage on/off', function () {
       value: 0,
       toBe: 3,
       callback: function (vcCake) {
-        var settings = this
-        var testStorage = vcCake.getStorage('test-f')
-        var eventName = 'testf_custom_event testf_custom_event2'
-        var counterX = 1
-        var callBackFunction = function (value) {
+        const settings = this
+        const testStorage = vcCake.getStorage('test-f')
+        const eventName = 'testf_custom_event testf_custom_event2'
+        let counterX = 1
+        const callBackFunction = function (value) {
           settings.value = value
           testStorage.off('testf_custom_event', callBackFunction)
         }
@@ -192,11 +192,11 @@ describe('running storage on/off', function () {
       value: 0,
       toBe: 3,
       callback: function (vcCake) {
-        var settings = this
-        var testStorage = vcCake.getStorage('test-g')
-        var eventName = 'testg_custom_event     testg_custom_event2'
-        var counterX = 1
-        var callBackFunction = function (value) {
+        const settings = this
+        const testStorage = vcCake.getStorage('test-g')
+        const eventName = 'testg_custom_event     testg_custom_event2'
+        let counterX = 1
+        const callBackFunction = function (value) {
           settings.value = value
           testStorage.off('testg_custom_event', callBackFunction)
         }
@@ -213,11 +213,11 @@ describe('running storage on/off', function () {
       value: 0,
       toBe: 3,
       callback: function (vcCake) {
-        var settings = this
-        var testStorage = vcCake.getStorage('test-h')
-        var eventName = 'testh_custom_event     testh_custom_event2    '
-        var counterX = 1
-        var callBackFunction = function (value) {
+        const settings = this
+        const testStorage = vcCake.getStorage('test-h')
+        const eventName = 'testh_custom_event     testh_custom_event2    '
+        let counterX = 1
+        const callBackFunction = function (value) {
           settings.value = value
           testStorage.off('testh_custom_event', callBackFunction)
         }
