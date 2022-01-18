@@ -9,7 +9,7 @@ declare class vcCake {
 
     addService (name: string, obj: any): void
 
-    env (key: string, value: any): any
+    env (key: string, value?: any): any
 
     start (fn: Function): void
 
