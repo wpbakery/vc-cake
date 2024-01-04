@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/wpbakery/vc-cake#readme",
   "dependencies": {
-    "immutable": "4.0.0",
+    "immutable": "4.3.4",
     "lodash": "4.17.21",
     "murmurhash": "2.0.0"
   },
